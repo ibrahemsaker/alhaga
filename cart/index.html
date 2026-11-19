@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>العربة وتأكيد الطلب | الحاجة</title>
+  <meta name="theme-color" content="#1a0b2e">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <link href="cart.css" rel="stylesheet">
+</head>
+<body data-root="../" data-page="cart">
+  <div id="page-loader"></div>
+  <div id="site-nav"></div>
+
+  <section class="page-hero"><div class="container"><h1>العربة</h1><p>راجع طلبك واكتب بياناتك وأكد على الواتساب</p></div></section>
+
+  <main class="container">
+    <!-- empty state -->
+    <div id="emptyState" class="text-center py-5" hidden>
+      <div class="empty-icon">🛍️</div>
+      <h2 class="sec-title">العربة فاضية</h2>
+      <p class="sec-lead mx-auto">ضيف حاجة حلوة من المنيو وارجع هنا تكمل الطلب.</p>
+      <a href="../menu/index.html" class="btn btn-gold mt-2">تصفح المنيو</a>
+    </div>
+
+    <div class="row g-4" id="cartWrap" hidden>
+      <!-- items + form -->
+      <div class="col-lg-7">
+        <div class="glass p-3 p-md-4 mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 m-0 text-warning">طلبك</h2>
+            <button class="btn btn-sm btn-outline-gold" id="clearCart"><i class="bi bi-trash3"></i> تفريغ العربة</button>
+          </div>
+          <div id="items"></div>
+        </div>
+
+        <form id="orderForm" class="glass p-3 p-md-4" novalidate>
+          <h2 class="h4 text-warning mb-3">بيانات الطلب</h2>
+
+          <label class="form-label">طريقة الطلب</label>
+          <div class="type-grid mb-3" role="radiogroup">
+            <label class="type"><input type="radio" name="type" value="delivery"><span><i class="bi bi-scooter"></i> ديليفري</span></label>
+            <label class="type"><input type="radio" name="type" value="pickup"><span><i class="bi bi-bag-check-fill"></i> استلام من الفرع</span></label>
+            <label class="type"><input type="radio" name="type" value="dinein"><span><i class="bi bi-cup-hot-fill"></i> على ترابيزة</span></label>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="name">الاسم</label>
+              <input class="form-control" id="name" placeholder="اسمك بالكامل" autocomplete="name">
+              <div class="invalid-msg">اكتب اسمك</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="phone">رقم الموبايل</label>
+              <input class="form-control" id="phone" type="tel" inputmode="numeric" placeholder="01xxxxxxxxx" dir="ltr" autocomplete="tel">
+              <div class="invalid-msg">اكتب رقم موبايل مصري صحيح (11 رقم)</div>
+            </div>
+
+            <!-- delivery -->
+            <div class="col-12 f-delivery">
+              <label class="form-label" for="address">العنوان بالتفصيل</label>
+              <textarea class="form-control" id="address" rows="2" placeholder="المنطقة، الشارع، رقم العمارة والدور والشقة"></textarea>
+              <div class="invalid-msg">اكتب عنوان التوصيل</div>
+            </div>
+            <div class="col-12 f-delivery">
+              <label class="form-label" for="landmark">علامة مميزة (اختياري)</label>
+              <input class="form-control" id="landmark" placeholder="قدام مسجد… جنب صيدلية…">
+            </div>
+
+            <!-- dine in -->
+            <div class="col-md-6 f-dinein">
+              <label class="form-label" for="table">رقم الترابيزة</label>
+              <input class="form-control" id="table" type="number" min="1" placeholder="رقم">
+              <div class="invalid-msg">اكتب رقم ترابيزة صحيح</div>
+            </div>
+
+            <!-- pickup -->
+            <div class="col-md-6 f-pickup">
+              <label class="form-label" for="pickTime">وقت الاستلام (اختياري)</label>
+              <input class="form-control" id="pickTime" type="time">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="pay">طريقة الدفع</label>
+              <select class="form-select" id="pay">
+                <option>كاش عند الاستلام</option>
+                <option>فودافون كاش</option>
+                <option>إنستاباي</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="notes">ملاحظات (اختياري)</label>
+              <textarea class="form-control" id="notes" rows="2" placeholder="بدون سكر، زيادة ثلج، تغليف هدية…"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- summary -->
+      <aside class="col-lg-5">
+        <div class="glass p-3 p-md-4 summary">
+          <h2 class="h4 text-warning mb-3">ملخص الحساب</h2>
+          <div class="line"><span>المجموع</span><b id="sSub"></b></div>
+          <div class="line"><span>رسوم التوصيل</span><b id="sFee"></b></div>
+          <p class="free-note" id="freeNote"></p>
+          <div class="line total"><span>الإجمالي</span><b id="sTotal"></b></div>
+          <button class="btn btn-wa w-100 mt-3 btn-lg" id="confirmBtn"><i class="bi bi-whatsapp"></i> تأكيد الطلب عبر واتساب</button>
+          <p class="small mt-3 mb-0" style="color:var(--muted)">هيتفتح واتساب برسالة جاهزة فيها تفاصيل طلبك — اضغط إرسال وهنأكد معاك فورًا.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- success modal -->
+  <div class="modal fade" id="doneModal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass text-center p-4">
+        <div class="empty-icon">🎉</div>
+        <h3 class="text-warning">تم تجهيز طلبك!</h3>
+        <p style="color:var(--muted)">رقم الطلب <b id="orderNo" class="text-warning"></b><br>لو واتساب مافتحش، اضغط الزر تحت.</p>
+        <div class="d-grid gap-2">
+          <a class="btn btn-wa" id="reopenWa" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> فتح واتساب</a>
+          <a class="btn btn-outline-gold" href="../home/index.html">الرجوع للرئيسية</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>

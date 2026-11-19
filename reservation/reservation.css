@@ -1,0 +1,18 @@
+/* ========== Reservation ========== */
+.floor{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:.6rem;padding:1rem;border-radius:18px;border:1px dashed var(--line);background:rgba(0,0,0,.18)}
+.tbl{
+  position:relative;aspect-ratio:1;border-radius:50%;border:2px solid var(--gold);background:rgba(224,176,74,.1);color:var(--gold-soft);
+  font-family:var(--font-display);font-size:1.3rem;display:grid;place-items:center;transition:.25s;line-height:1;
+}
+.tbl small{display:block;font-family:var(--font-body);font-size:.68rem;color:var(--muted);margin-top:2px}
+.tbl:hover:not(:disabled){transform:scale(1.08);background:rgba(224,176,74,.25)}
+.tbl.sel{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:var(--purple-900)}
+.tbl.sel small{color:var(--purple-800)}
+.tbl:disabled{opacity:.3;border-style:dashed;cursor:not-allowed}
+.legend{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.7rem;font-size:.85rem;color:var(--muted)}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-inline-end:.3rem;vertical-align:middle}
+.dot.free{border:2px solid var(--gold)}.dot.sel{background:var(--gold)}.dot.off{border:2px dashed var(--muted);opacity:.5}
+.res-sum{position:sticky;top:100px}
+.sum-list{list-style:none;padding:0;margin:0 0 1.2rem}
+.sum-list li{display:flex;gap:.7rem;align-items:center;padding:.6rem 0;border-bottom:1px dashed var(--line)}
+.sum-list i{color:var(--gold);font-size:1.2rem}

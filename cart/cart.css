@@ -1,0 +1,29 @@
+/* ========== Cart ========== */
+.empty-icon{font-size:4.5rem;animation:badgeFloat 2.4s ease-in-out infinite}
+.item{display:grid;grid-template-columns:78px 1fr auto;gap:.9rem;align-items:center;padding:.8rem 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.item .thumb{width:78px;height:78px;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,var(--purple-700),var(--brown-700));display:grid;place-items:center;font-size:2rem}
+.item .thumb img{width:100%;height:100%;object-fit:cover}
+.item h3{font-size:1.05rem;margin:0;color:var(--cream)}
+.item small{color:var(--muted)}
+.item .ip{color:var(--gold-soft);font-weight:800}
+.item .side{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.qty{display:flex;align-items:center;gap:.4rem}
+.qty button{width:32px;height:32px;border-radius:50%;border:1px solid var(--gold);background:transparent;color:var(--gold);font-weight:800;line-height:1}
+.qty button:hover{background:var(--gold);color:var(--purple-900)}
+.qty span{min-width:24px;text-align:center;font-weight:800}
+.rm{background:none;border:0;color:#ff9aa8;font-size:.85rem}
+@media(max-width:480px){.item{grid-template-columns:62px 1fr}.item .thumb{width:62px;height:62px}.item .side{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}}
+
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+.type input{position:absolute;opacity:0}
+.type span{display:flex;flex-direction:column;align-items:center;gap:.2rem;text-align:center;padding:.8rem .4rem;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;font-weight:700;font-size:.92rem;transition:.25s}
+.type span i{font-size:1.5rem;color:var(--gold)}
+.type input:checked + span{background:linear-gradient(135deg,var(--purple-600),var(--purple-700));border-color:var(--gold);box-shadow:0 0 0 2px rgba(224,176,74,.35)}
+.type input:focus-visible + span{outline:3px solid var(--gold)}
+@media(max-width:420px){.type span{font-size:.8rem}}
+
+.summary{position:sticky;top:100px}
+.line{display:flex;justify-content:space-between;padding:.55rem 0;color:var(--ink)}
+.line.total{border-top:1px solid var(--line);margin-top:.5rem;padding-top:.9rem;font-size:1.25rem;font-family:var(--font-display);color:var(--gold-soft)}
+.free-note{font-size:.85rem;color:var(--gold-soft);margin:.2rem 0 0;min-height:1.2em}
